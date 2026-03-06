@@ -1,0 +1,193 @@
+player,team,primary_position,matches_played,passes_per_match,progression_rate_pct,final_third_per_match,box_passes_per_match,key_passes_per_match
+Remo Freuler,Switzerland,Right Defensive Midfield,4,31.5,11.9,3.0,0.25,0.0
+Silvan Widmer,Switzerland,Right Back,3,42.3,17.32,4.0,1.33,0.33
+Saša Lukić,Serbia,Right Defensive Midfield,3,47.7,8.39,5.33,0.33,0.0
+Nikola Milenković,Serbia,Right Center Back,3,45.3,17.65,3.0,0.0,0.0
+Strahinja Pavlović,Serbia,Left Center Back,3,40.3,24.79,5.33,0.0,0.0
+Manuel Obafemi Akanji,Switzerland,Right Center Back,4,57.2,24.89,3.0,0.25,0.25
+Granit Xhaka,Switzerland,Left Defensive Midfield,4,52.8,17.06,6.25,1.25,0.5
+Ricardo Iván Rodríguez Araya,Switzerland,Left Back,4,43.0,19.19,4.5,0.75,0.5
+Jackson Irvine,Australia,Right Defensive Midfield,4,26.8,11.21,1.25,0.75,0.25
+Kye Rowles,Australia,Left Center Back,4,42.5,15.88,1.0,0.0,0.0
+Enzo Fernandez,Argentina,Center Defensive Midfield,7,59.4,10.1,6.29,1.43,0.71
+Lionel Andrés Messi Cuccittini,Argentina,Right Center Forward,7,43.7,16.01,4.57,3.57,2.29
+Marcos Javier Acuña,Argentina,Left Back,6,28.3,12.35,1.67,0.67,0.83
+Nicolás Hernán Otamendi,Argentina,Left Center Back,7,75.4,12.12,3.71,0.29,0.14
+Cristian Gabriel Romero,Argentina,Right Center Back,7,47.1,16.67,2.43,0.0,0.0
+Nahuel Molina Lucero,Argentina,Right Back,7,42.3,10.81,3.29,0.57,0.29
+Rodrigo Javier De Paul,Argentina,Right Center Midfield,7,67.9,9.47,5.43,1.0,1.0
+Aziz Eraltay Behich,Australia,Left Back,4,38.5,9.74,3.0,0.5,0.0
+Harry Souttar,Australia,Right Center Back,4,33.8,22.96,3.75,0.25,0.25
+Mathew Ryan,Australia,Goalkeeper,4,28.0,53.57,2.25,0.0,0.0
+Damián Emiliano Martínez,Argentina,Goalkeeper,7,17.6,33.33,0.71,0.0,0.0
+Alexis Mac Allister,Argentina,Left Center Midfield,6,40.3,6.61,2.17,1.0,1.17
+Aaron Mooy,Australia,Left Defensive Midfield,4,42.8,17.54,5.0,0.75,0.25
+Lisandro Martínez,Argentina,Left Center Back,5,26.4,15.15,2.4,0.2,0.0
+Nicolás Alejandro Tagliafico,Argentina,Left Back,6,25.5,11.76,0.67,0.5,0.33
+Christian Dannemann Eriksen,Denmark,Left Center Midfield,3,64.3,13.47,6.0,4.33,3.0
+Joakim Mæhle,Denmark,Left Wing Back,3,40.0,11.67,2.67,0.67,0.33
+Andreas Christensen,Denmark,Left Center Back,3,78.7,13.98,5.0,0.33,0.0
+Joachim Andersen,Denmark,Right Center Back,3,66.3,25.13,9.33,0.33,0.0
+Pierre-Emile Højbjerg,Denmark,Right Defensive Midfield,3,66.7,18.5,7.33,0.67,0.33
+Rasmus Nissen Kristensen,Denmark,Right Wing Back,3,46.3,14.39,2.67,1.33,0.33
+Neymar da Silva Santos Junior,Brazil,Center Attacking Midfield,3,41.0,16.26,5.33,3.67,1.33
+Alex Sandro Lobo Silva,Brazil,Left Back,3,50.0,13.33,5.67,0.67,0.33
+Carlos Henrique Casimiro,Brazil,Left Defensive Midfield,4,54.2,15.21,5.75,1.25,1.0
+Thiago Emiliano da Silva,Brazil,Left Center Back,4,80.0,15.62,7.0,0.75,0.75
+Marcos Aoás Corrêa,Brazil,Right Center Back,5,69.0,10.72,6.6,1.0,1.0
+Danilo Luiz da Silva,Brazil,Left Back,3,77.3,13.36,7.33,0.67,0.0
+Lucas Tolentino Coelho de Lima,Brazil,Right Defensive Midfield,4,43.0,13.95,3.75,1.75,1.25
+Raphael Dias Belloli,Brazil,Right Wing,5,23.0,6.96,0.6,2.6,1.6
+Montassar Omar Talbi,Tunisia,Left Center Back,3,38.3,18.26,2.67,0.67,0.0
+Yassine Meriah,Tunisia,Right Center Back,3,46.0,15.22,3.0,0.0,0.33
+Ellyes Joris Skhiri,Tunisia,Right Defensive Midfield,3,36.3,20.18,2.67,0.33,0.67
+Felix Eduardo Torres Caicedo,Ecuador,Right Center Back,3,53.0,21.38,1.67,0.0,0.0
+Piero Martín Hincapié Reyna,Ecuador,Left Center Back,3,57.0,19.3,2.67,0.33,0.0
+Pervis Josué Estupiñán Tenorio,Ecuador,Left Back,3,48.7,9.59,3.33,3.0,1.33
+Kalidou Koulibaly,Senegal,Right Center Back,4,38.0,23.68,3.0,0.0,0.25
+Idrissa Gana Gueye,Senegal,Center Attacking Midfield,3,35.3,7.55,4.67,0.67,0.33
+Ismail Jakobs,Senegal,Left Back,4,26.2,17.14,2.5,2.0,1.0
+Abdou Diallo,Senegal,Left Center Back,4,35.5,27.46,3.5,0.25,0.25
+Youssouf Sabaly,Senegal,Right Back,4,48.0,13.54,3.5,2.0,2.0
+Moisés Isaac Caicedo Corozo,Ecuador,Left Defensive Midfield,3,42.7,8.59,2.33,0.33,0.0
+Nampalys Mendy,Senegal,Left Defensive Midfield,4,36.2,14.48,2.25,0.5,0.25
+Nathan Aké,Netherlands,Left Center Back,5,63.8,13.17,6.0,0.2,0.0
+Frenkie de Jong,Netherlands,Left Defensive Midfield,5,65.4,10.09,6.2,0.4,0.6
+Virgil van Dijk,Netherlands,Center Back,5,61.0,20.33,2.8,0.2,0.4
+Jurriën David Norman Timber,Netherlands,Right Center Back,4,71.5,11.54,6.5,0.0,0.0
+Daley Blind,Netherlands,Left Wing Back,5,52.0,13.85,5.2,1.6,0.2
+Andries Noppert,Netherlands,Goalkeeper,5,31.4,45.86,0.4,0.0,0.0
+Denzel Dumfries,Netherlands,Right Wing Back,5,29.6,10.14,1.8,1.6,0.0
+Leandro Daniel Paredes,Argentina,Left Defensive Midfield,5,45.4,15.42,4.0,0.2,0.4
+Ángel Fabián Di María Hernández,Argentina,Right Midfield,5,25.2,9.52,0.4,3.2,2.0
+Woo-Young Jung,South Korea,Right Defensive Midfield,4,44.8,17.88,6.75,0.5,0.5
+Young-Gwon Kim,South Korea,Left Center Back,4,45.0,23.89,4.25,0.75,0.5
+Rodrigo Bentancur Colmán,Uruguay,Left Defensive Midfield,3,44.7,16.42,3.33,0.33,0.67
+Mathías Olivera Miramontes,Uruguay,Left Back,3,36.0,11.11,1.67,2.0,2.0
+Min Jae Kim,South Korea,Right Center Back,3,55.0,20.61,5.33,0.33,0.0
+In-Beom Hwang,South Korea,Left Defensive Midfield,4,49.8,16.58,6.75,0.75,0.75
+Jin-Su Kim,South Korea,Left Back,4,25.5,14.71,2.25,1.75,1.0
+Moon-Hwan Kim,South Korea,Right Back,4,51.2,10.24,3.5,1.75,0.5
+José María Giménez de Vargas,Uruguay,Right Center Back,3,46.7,24.29,5.0,0.33,0.33
+Federico Santiago Valverde Dipetta,Uruguay,Right Defensive Midfield,3,50.7,21.71,8.33,2.0,1.33
+Otávio Edmilson da Silva Monteiro,Portugal,Left Center Midfield,3,33.7,10.89,2.33,2.33,1.33
+Rúben Diogo Da Silva Neves,Portugal,Center Defensive Midfield,5,47.6,13.87,4.8,0.4,0.6
+Kléper Laveran Lima Ferreira,Portugal,Right Center Back,4,63.0,15.08,5.5,0.25,0.0
+Rúben Santos Gato Alves Dias,Portugal,Left Center Back,4,61.5,14.63,3.5,0.0,0.0
+Yassine Bounou,Morocco,Goalkeeper,6,26.0,37.82,0.67,0.0,0.0
+Raphaël Adelino José Guerreiro,Portugal,Left Back,4,40.8,12.27,2.5,1.25,1.0
+Jawad El Yamiq,Morocco,Left Center Back,6,23.8,10.49,0.83,0.0,0.0
+Sofyan Amrabat,Morocco,Center Defensive Midfield,7,39.1,14.23,2.57,0.14,0.29
+Bruno Miguel Borges Fernandes,Portugal,Right Wing,4,46.5,15.05,6.25,3.5,1.5
+Bernardo Mota Veiga de Carvalho e Silva,Portugal,Right Center Midfield,5,51.8,8.49,4.6,0.6,1.0
+José Diogo Dalot Teixeira,Portugal,Right Back,3,38.3,13.91,2.67,1.33,1.0
+Hakim Ziyech,Morocco,Right Wing,7,30.0,14.29,2.86,1.57,0.86
+Diogo Meireles Costa,Portugal,Goalkeeper,5,22.2,38.74,0.8,0.0,0.2
+Romain Saïss,Morocco,Left Center Back,6,26.3,25.32,1.83,0.17,0.0
+Azzedine Ounahi,Morocco,Right Center Midfield,7,31.6,11.31,2.86,1.0,0.86
+Achraf Hakimi Mouh,Morocco,Right Back,7,44.9,11.15,2.0,1.0,0.86
+Sofiane Boufal,Morocco,Left Wing,7,15.3,14.95,1.29,1.14,0.57
+João Pedro Cavaco Cancelo,Portugal,Left Back,4,56.0,11.61,3.5,2.0,0.25
+Vitor Machado Ferreira,Portugal,Left Center Midfield,3,34.0,10.78,6.67,1.33,0.33
+Antoine Griezmann,France,Center Attacking Midfield,7,36.4,14.9,3.57,3.43,2.43
+Theo Bernard François Hernández,France,Left Back,6,48.3,13.45,4.67,1.83,1.67
+Adrien Rabiot,France,Left Defensive Midfield,6,41.0,8.54,4.33,0.5,0.17
+Raphaël Varane,France,Right Center Back,6,41.8,11.55,2.83,0.17,0.0
+Jules Koundé,France,Right Back,6,43.0,15.5,3.67,0.17,0.33
+Hugo Lloris,France,Goalkeeper,6,18.5,55.86,0.83,0.17,0.0
+Kylian Mbappé Lottin,France,Left Wing,7,25.7,10.56,2.0,3.14,1.29
+Ousmane Dembélé,France,Right Wing,7,21.3,7.38,0.57,2.57,1.43
+Dayotchanculle Upamecano,France,Left Center Back,5,61.0,19.34,5.2,0.0,0.2
+Aurélien Djani Tchouaméni,France,Right Defensive Midfield,7,61.6,11.6,6.14,0.71,0.86
+Ibrahima Konaté,France,Left Center Back,5,41.8,18.18,4.0,0.4,0.4
+Luis Gerardo Chávez Magallón,Mexico,Left Center Midfield,3,34.7,18.27,4.67,2.33,1.33
+César Jasib Montes Castro,Mexico,Right Center Back,3,54.3,15.34,5.0,0.67,0.33
+Héctor Alfredo Moreno Herrera,Mexico,Left Center Back,3,55.3,16.27,7.33,0.0,0.33
+Mohammed Kanoo,Saudi Arabia,Right Defensive Midfield,3,39.3,18.64,2.33,0.67,0.0
+Kamil Glik,Poland,Right Center Back,4,30.5,9.02,0.75,0.0,0.0
+Jakub Piotr Kiwior,Poland,Left Center Back,4,42.2,17.75,2.75,0.25,0.0
+Matty Cash,Poland,Right Back,4,30.2,10.74,3.0,0.75,0.5
+Piotr Zieliński,Poland,Right Center Midfield,4,31.0,16.13,3.75,2.0,1.75
+Bartosz Bereszyński,Poland,Left Back,4,30.2,13.22,1.25,0.75,0.0
+Nico Elvedi,Switzerland,Left Center Back,2,66.0,10.61,1.0,0.0,0.0
+Éder Gabriel Militão,Brazil,Right Back,4,62.8,17.93,5.0,0.5,0.0
+Yann Sommer,Switzerland,Goalkeeper,3,35.7,28.97,0.0,0.0,0.0
+Boualem Khoukhi,Qatar,Center Back,3,55.7,17.96,1.0,0.67,0.0
+Abdelkarim Hassan Al Haj Fadlalla,Qatar,Left Center Back,3,41.7,15.2,3.33,0.33,0.33
+Akram Hassan Afif,Qatar,Left Center Forward,3,47.0,12.77,3.33,2.67,1.67
+William Silva de Carvalho,Portugal,Left Center Midfield,4,38.2,11.76,2.75,0.0,0.0
+Declan Rice,England,Left Defensive Midfield,5,61.2,11.76,4.6,0.4,0.2
+Luke Shaw,England,Left Back,5,68.0,10.88,4.6,3.2,1.4
+Harry Maguire,England,Left Center Back,5,70.8,21.47,5.4,0.4,0.0
+John Stones,England,Right Center Back,5,86.0,17.44,4.0,0.2,0.2
+Jordan Pickford,England,Goalkeeper,5,25.2,31.75,1.2,0.0,0.0
+Kyle Walker,England,Right Back,3,53.0,13.84,3.33,1.0,0.0
+Jude Bellingham,England,Right Defensive Midfield,5,48.4,11.57,4.4,1.6,0.6
+Jordan Brian Henderson,England,Right Center Midfield,4,35.2,7.09,1.75,1.5,1.0
+Mateo Kovačić,Croatia,Left Center Midfield,7,59.4,8.41,6.86,1.29,1.29
+Joško Gvardiol,Croatia,Left Center Back,7,66.1,17.71,4.14,0.14,0.14
+Luka Modrić,Croatia,Right Center Midfield,7,66.1,16.2,8.71,2.43,0.86
+Andrej Kramarić,Croatia,Right Wing,7,21.6,2.65,0.43,0.71,0.71
+Ivan Perišić,Croatia,Left Wing,7,30.6,5.14,0.86,1.86,0.86
+Dominik Livaković,Croatia,Goalkeeper,7,27.0,35.45,0.86,0.0,0.0
+Marcelo Brozović,Croatia,Center Defensive Midfield,6,78.7,9.11,6.5,0.33,0.83
+Dejan Lovren,Croatia,Right Center Back,6,67.8,16.95,2.83,0.17,0.0
+Josip Juranović,Croatia,Right Back,6,54.3,14.11,4.0,2.33,1.0
+Borna Sosa,Croatia,Left Back,5,44.4,13.96,2.8,0.8,0.4
+Noussair Mazraoui,Morocco,Left Back,5,20.6,18.45,0.8,0.2,0.2
+Pablo Martín Páez Gavira,Spain,Right Center Midfield,4,33.8,2.96,1.25,1.25,0.5
+Aymeric Laporte,Spain,Left Center Back,3,134.7,13.61,8.67,1.0,0.33
+Rodrigo Hernández Cascante,Spain,Right Center Back,4,161.0,11.96,11.75,0.75,1.0
+Daniel Olmo Carvajal,Spain,Left Wing,4,40.0,4.38,1.0,1.75,0.75
+Pedro González López,Spain,Left Center Midfield,4,98.8,12.15,15.75,2.0,1.25
+Jordi Alba Ramos,Spain,Left Back,4,82.2,9.12,6.25,1.5,0.75
+Nayef Aguerd,Morocco,Right Center Back,4,33.2,19.55,1.5,0.0,0.25
+Sergio Busquets i Burgos,Spain,Center Defensive Midfield,4,66.2,9.43,6.0,0.5,0.75
+Unai Simón Mendibil,Spain,Goalkeeper,4,37.0,27.7,0.0,0.0,0.0
+Alejandro Balde Martínez,Spain,Left Back,4,27.8,10.81,1.5,0.5,0.0
+Wataru Endo,Japan,Right Defensive Midfield,3,51.0,10.46,5.0,1.0,1.33
+Maya Yoshida,Japan,Center Back,4,50.2,13.93,3.0,0.0,0.0
+Hidemasa Morita,Japan,Left Defensive Midfield,3,42.7,14.06,3.67,0.67,1.0
+Sergino Dest,United States,Right Back,4,43.5,9.77,3.75,1.0,0.5
+Walker Zimmerman,United States,Right Center Back,4,53.0,15.57,1.5,0.0,0.0
+Tim Ream,United States,Left Center Back,4,60.2,19.92,4.5,0.0,0.0
+Tyler Adams,United States,Center Defensive Midfield,4,61.5,13.01,6.5,0.5,0.5
+Antonee Robinson,United States,Left Back,4,43.8,18.29,3.5,1.25,0.75
+Yunus Dimoara Musah,United States,Left Center Midfield,4,38.5,11.69,3.0,1.5,0.75
+Weston McKennie,United States,Right Center Midfield,4,29.2,20.51,4.25,1.5,0.75
+Daniel Carvajal Ramos,Spain,Right Back,2,61.0,7.38,5.5,0.0,0.0
+Niklas Süle,Germany,Right Center Back,3,77.7,20.6,8.33,0.67,0.0
+Manuel Neuer,Germany,Goalkeeper,3,37.0,43.24,0.0,0.0,0.0
+Antonio Rüdiger,Germany,Left Center Back,3,75.7,14.1,8.0,0.0,0.0
+David Raum,Germany,Left Back,3,50.3,7.95,4.33,3.67,2.33
+Joshua Kimmich,Germany,Right Defensive Midfield,3,76.3,16.59,9.0,4.0,2.67
+İlkay Gündoğan,Germany,Left Defensive Midfield,3,49.3,12.84,5.67,1.67,0.33
+Nico Schlotterbeck,Germany,Left Center Back,2,56.0,14.29,4.5,1.0,1.0
+Ngoran Suiru Fai Collins,Cameroon,Right Back,3,34.3,22.33,5.0,0.0,0.67
+André-Frank Zambo Anguissa,Cameroon,Right Center Midfield,3,38.3,12.17,4.67,0.33,0.0
+Joel Nathaniel Campbell Samuels,Costa Rica,Center Forward,3,35.0,11.43,2.67,2.0,0.33
+Ko Itakura,Japan,Right Center Back,3,34.0,12.75,4.0,0.0,0.0
+Axel Witsel,Belgium,Left Defensive Midfield,3,56.3,5.92,3.0,0.0,0.33
+Toby Alderweireld,Belgium,Right Center Back,3,81.3,19.67,4.33,0.33,0.0
+Jan Vertonghen,Belgium,Left Center Back,3,79.0,12.24,0.67,0.0,0.0
+Thomas Meunier,Belgium,Right Back,3,36.3,15.6,1.67,1.0,0.67
+Thibaut Courtois,Belgium,Goalkeeper,3,36.3,24.77,0.33,0.0,0.0
+Timothy Castagne,Belgium,Left Back,3,58.7,14.2,5.67,0.67,0.0
+Kevin De Bruyne,Belgium,Right Wing,3,33.3,21.0,4.33,4.33,2.67
+Chris Mepham,Wales,Right Center Back,3,47.7,19.58,2.33,0.67,0.67
+Ben Davies,Wales,Left Center Back,3,40.3,22.31,3.33,0.0,0.0
+Joe Rodon,Wales,Center Back,3,49.0,10.88,0.0,0.0,0.0
+Ethan Ampadu,Wales,Center Defensive Midfield,3,36.7,20.0,4.67,0.33,0.67
+Jhegson Sebastián Méndez Carabalí,Ecuador,Right Defensive Midfield,2,65.0,7.69,2.5,0.0,1.0
+Salis Abdul Samed,Ghana,Left Defensive Midfield,3,43.3,6.15,3.0,0.0,0.33
+Daniel Amartey,Ghana,Right Center Back,3,43.0,20.93,3.0,0.0,1.0
+Thomas Teye Partey,Ghana,Right Defensive Midfield,3,51.0,16.34,7.0,0.67,0.67
+Mohamed Salisu,Ghana,Left Center Back,3,35.3,19.81,4.0,0.0,0.0
+Leander Dendoncker,Belgium,Right Center Back,2,58.5,10.26,2.0,0.5,0.5
+César Azpilicueta Tanco,Spain,Right Back,2,84.5,8.88,6.5,1.5,1.5
+Kamal Miller,Canada,Left Center Back,3,61.3,23.37,9.0,0.0,0.0
+Alistair Johnston,Canada,Right Back,3,52.0,20.51,5.67,1.67,1.33
+Steven de Sousa Vitoria,Canada,Right Center Back,3,53.3,18.12,3.67,0.0,0.0
+Atiba Hutchinson,Canada,Right Defensive Midfield,3,34.3,12.62,3.67,0.0,0.0
+Kieran Trippier,England,Right Back,3,55.0,12.12,4.0,2.33,1.0
+Pau Francisco Torres,Spain,Left Center Back,1,171.0,7.02,14.0,0.0,0.0

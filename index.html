@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Number 8: The Ultimate Playmaker</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* Hero section visuals */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0a 0%, #121212 100%);
+            padding: 0 20px;
+        }
+        h1 { color: #ffd700; font-size: 3.5rem; margin-bottom: 15px; }
+        p.subtitle { color: #aaa; max-width: 600px; font-size: 1.2rem; line-height: 1.6; }
+        .scroll-prompt { margin-top: 50px; color: #ffd700; letter-spacing: 2px; animation: bounce 2s infinite; font-weight: bold; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+
+        /* layout for the scrolly narrative */
+        #scrolly {
+            position: relative;
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 5%;
+        }
+
+        /* the sticky graphic on the left */
+        figure {
+            position: sticky;
+            top: 5vh;
+            width: 65%;
+            height: 90vh;
+            margin: 0;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* text steps on the right */
+        article {
+            width: 35%;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .step {
+            height: 100vh; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0.2;
+            transition: opacity 0.5s ease;
+        }
+        .step.is-active { opacity: 1; }
+        .step h2 { color: #ffd700; font-size: 2rem; margin-bottom: 15px; }
+        .step p { font-size: 1.1rem; line-height: 1.7; color: #ccc; background: rgba(0,0,0,0.8); padding: 20px; border-radius: 8px; border: 1px solid #444; }
+
+        /* styles for the containers */
+        #chart-container { width: 100%; height: 100%; position: absolute; top:0; left:0; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s;}
+        #grid-container { 
+            width: 100%; height: 100%; position: absolute; top:0; left:0; 
+            display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; 
+            padding: 130px 10px 20px 10px; 
+            opacity: 0; pointer-events: none; transition: opacity 0.8s;
+            box-sizing: border-box;
+        }
+        #vote-container {
+            width: 100%; height: 100%; position: absolute; top:0; left:0;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.8s;
+            padding: 30px; box-sizing: border-box; overflow-y: auto;
+        }
+        #vote-container > * { max-width: 800px; }
+        .vote-btn-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .vote-btn { font-size: 1rem; padding: 0.5rem 1rem; margin: 5px; }
+        #results-chart { width: 100%; max-width: 600px; height: 200px; }
+        #verdict-box { max-width: 700px; text-align: left; }
+
+        /* Enhanced Tooltip */
+        .tooltip {
+            position: absolute; background: rgba(0,0,0,0.95); color: white; padding: 15px;
+            border-radius: 6px; pointer-events: none; opacity: 0; font-size: 14px;
+            border: 1px solid #555; z-index: 10000; box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            line-height: 1.5; max-width: 250px; white-space: normal;
+        }
+        .highlight { font-weight: bold; color: #ffd700; font-size: 16px; }
+
+        /* styles used for the 2x2 player cards */
+        .player-card { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+        .card-header { text-align: center; margin-bottom: 5px; }
+        .card-header h3 { margin: 0; color: #fff; font-size: 18px; }
+        .card-header span { color: #aaa; font-size: 11px; font-style: italic; }
+        .charts-wrapper { display: flex; flex-direction: row; justify-content: space-around; width: 100%; align-items: center; margin-top: 10px; }
+        
+        #sonar-legend {
+            position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; opacity: 0; transition: opacity 0.8s; z-index: 100;
+            pointer-events: none; 
+        }
+        .legend-bar { width: 300px; height: 12px; background: linear-gradient(90deg, #ffffb2, #fd8d3c, #bd0026); border-radius: 6px; margin: 8px 0; border: 1px solid #444;}
+        .legend-labels { display: flex; justify-content: space-between; width: 300px; font-size: 12px; color: #ccc; font-weight: bold; }
+
+        /* styles for the voting act */
+        .vote-btn-container { display: flex; gap: 15px; margin-bottom: 40px; }
+        .vote-btn {
+            background: #222; color: #fff; border: 2px solid #555; border-radius: 8px;
+            padding: 15px 30px; font-size: 18px; font-weight: bold; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .vote-btn:hover { background: #444; border-color: #ffd700; transform: translateY(-3px); }
+        .vote-btn.selected { background: #ffd700; color: #121212; border-color: #ffd700; }
+        
+        #verdict-box {
+            background: rgba(0, 180, 216, 0.1); border-left: 4px solid #00b4d8;
+            padding: 25px; border-radius: 0 8px 8px 0; max-width: 700px;
+            opacity: 0; transition: opacity 1s ease; margin-top: 30px;
+            font-size: 1.1rem; line-height: 1.6; color: #eee;
+        }
+        #verdict-box h3 { color: #00b4d8; margin-top: 0; font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <section id="hero">
+        <h1>Project Number 8</h1>
+        <p class="subtitle">Scouting the ultimate vertical playmaker from the 2022 World Cup using data-driven funnels, progressive pitch mapping, and tactical sonar signatures.</p>
+        <div class="scroll-prompt">↓ Scroll to Discover ↓</div>
+    </section>
+
+    <section id="scrolly">
+        <figure>
+            <div id="controls" style="position: absolute; top: 20px; right: 20px; z-index: 100; display: none;">
+                <select id="team-filter" style="padding: 8px; background: #222; color: #fff; border: 1px solid #555; border-radius: 4px; font-size: 12px;">
+                    <option value="All">Highlight Team: All</option>
+                </select>
+            </div>
+            <div id="chart-container"></div>
+            
+            <div id="sonar-legend">
+                <span style="color: #ffd700; font-weight: bold; font-size: 15px; letter-spacing: 2px;">⬆ ATTACKING DIRECTION ⬆</span>
+                <div class="legend-bar"></div>
+                <div class="legend-labels"><span>Short/Safe Passes</span><span>Long/Risky Passes</span></div>
+            </div>
+            <div id="grid-container"></div>
+
+            <div id="vote-container">
+                <h2 style="color: white; font-size: 2.5rem; margin-bottom: 30px;">Who is your Number 8?</h2>
+                <div class="vote-btn-container">
+                    <button class="vote-btn" onclick="submitVote('Pedri')">Pedri</button>
+                    <button class="vote-btn" onclick="submitVote('Eriksen')">Eriksen</button>
+                    <button class="vote-btn" onclick="submitVote('Modrić')">Modrić</button>
+                    <button class="vote-btn" onclick="submitVote('Kimmich')">Kimmich</button>
+                </div>
+                
+                <div id="results-chart"></div>
+
+                <div id="verdict-box">
+                    <h3>The Scout's Verdict: Joshua Kimmich</h3>
+                    <p>While Modrić is arguably the greatest controller of his generation, his age profile requires careful minute-management. For a cornerstone signing, <b>Joshua Kimmich</b> is the undisputed target.</p>
+                    <p>He broke the data funnel by delivering an absurd <b>12.67 progressive passes</b> and <b>4.0 penalty box entries</b> per match while maintaining 84.5% accuracy. As proven by his sonar, he possesses the elite ability to bypass defensive blocks with long, direct, pinpoint distribution from deep areas. He is the ultimate modern Number 8.</p>
+                </div>
+            </div>
+
+            <div id="tooltip" class="tooltip"></div>
+        </figure>
+
+        <article>
+            <div class="step" data-step="1">
+                <h2>Act I: The Engine Room</h2>
+                <p>We start with the 47 central midfielders who commanded the ball most during the tournament.<br><br>To survive the first cut, a player must be a reliable engine: <b>Completion > 82%</b>, <b>Progressive Passes > 8</b>, AND <b>Pass Volume > 45</b> per match.<br><br>Hover over the gray dots in the golden zone to see why they failed (usually low volume). Only 9 elite line-breakers qualify for the next round.</p>
+            </div>
+            <div class="step" data-step="2">
+                <h2>Act II: The Final Third Threat</h2>
+                <p>Progressing the ball in your own half is easy. Progressing it where it hurts is elite.<br><br>We zoom in on our Top 9. To reach the Final 4, players must avoid the <b>Red Elimination Zone</b> by heavily penetrating the <b>Final Third</b> or directly into the <b>Penalty Box</b>.<br><br>Notice how Højbjerg and Casemiro fall into the red, while Pedri, Modrić, Kimmich, and Eriksen survive.</p>
+            </div>
+            <div class="step" data-step="3">
+                <h2>Act III: The Tactical DNA</h2>
+                <p>We have our Final 4. But how do they actually play? <br><br>The <b>Pass Sonar (Left)</b> shows their passing habits. The slice length shows the percentage of passes in that direction, and color shows distance.<br><br>The <b>Pitch Map (Right)</b> shows exactly where their vertical passes land on the grass (gold = into the box).<br><br><i>Pedri controls the edge of the box, Eriksen strikes straight up the middle, Modrić offers total balance, and Kimmich rains fire directly into the penalty area.</i></p>
+            </div>
+            <div class="step" data-step="4">
+                <h2>Act IV: The Verdict</h2>
+                <p>We have isolated the four most dangerous, volume-heavy, highly accurate playmakers in the world.<br><br>Now it is time to make a decision for the Board of Directors.<br><br>Review the data profiles carefully. Who would you sign to run your midfield?</p>
+            </div>
+        </article>
+    </section>
+
+    <script>
+        // global vars and initial setup
+        const width = 850, height = 750;
+        const svg = d3.select("#chart-container").append("svg").attr("width", width).attr("height", height);
+        const margin = {top: 50, right: 50, bottom: 60, left: 60};
+        const innerWidth = width - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+        const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+        const tooltip = d3.select("#tooltip");
+
+        const xAxisG = g.append("g").attr("transform", `translate(0,${innerHeight})`);
+        const yAxisG = g.append("g");
+        const xLabel = g.append("text").attr("x", innerWidth/2).attr("y", innerHeight + 45).attr("fill", "white").style("text-anchor", "middle");
+        const yLabel = g.append("text").attr("transform", "rotate(-90)").attr("x", -innerHeight/2).attr("y", -40).attr("fill", "white").style("text-anchor", "middle");
+        const chartContent = g.append("g"); 
+
+        Promise.all([
+            d3.csv("final_midfield_funnel.csv"),
+            d3.csv("act3_final_sonars.csv"),
+            d3.csv("act3_pitch_passes.csv")
+        ]).then(function([funnelData, sonarData, pitchData]) {
+            
+            // convert strings to numbers
+            funnelData.forEach(d => { d.completion_pct = +d.completion_pct; d.prog_per_match = +d.prog_per_match; d.passes_per_match = +d.passes_per_match; d.final_third_per_match = +d.final_third_per_match; d.box_passes_per_match = +d.box_passes_per_match; d.key_passes_per_match = +d.key_passes_per_match; });
+            sonarData.forEach(d => { d.angle_degrees = +d.angle_degrees; d.length = +d.length; });
+            pitchData.forEach(d => { d.start_x = +d.start_x; d.start_y = +d.start_y; d.end_x = +d.end_x; d.end_y = +d.end_y; d.is_box = +d.is_box; });
+
+            // rules that determine who moves on
+            const passesAct1 = d => d.completion_pct >= 82 && d.prog_per_match >= 8 && d.passes_per_match >= 45;
+            const eliteNine = funnelData.filter(passesAct1);
+            const passesAct2 = d => d.final_third_per_match >= 8 || (d.box_passes_per_match >= 2 && d.key_passes_per_match >= 1);
+
+            buildAct3Grid(sonarData, pitchData);
+
+            // set up team filter for act1 and act2
+            const teams = Array.from(new Set(funnelData.map(d => d.team))).sort();
+            const select = d3.select("#team-filter");
+            teams.forEach(team => {
+                select.append("option").attr("value", team).text(team);
+            });
+
+            select.on("change", function() {
+                const selectedTeam = this.value;
+                chartContent.selectAll("circle.player")
+                    .transition().duration(300)
+                    .style("opacity", d => {
+                        if (selectedTeam === "All") return 1;
+                        return d.team === selectedTeam ? 1 : 0.1;
+                    })
+                    .attr("stroke", d => d.team === selectedTeam && selectedTeam !== "All" ? "#fff" : "#111");
+            });
+
+            // draw routines for each act
+            function drawAct1() {
+                d3.select("#controls").style("display", "block");
+                d3.select("#chart-container").style("pointer-events", "auto").transition().duration(500).style("opacity", 1);
+                d3.select("#grid-container").transition().duration(500).style("opacity", 0);
+                d3.select("#sonar-legend").transition().duration(500).style("opacity", 0);
+                d3.select("#vote-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                chartContent.selectAll("*").remove();
+
+                const xScale = d3.scaleLinear().domain([75, 100]).range([0, innerWidth]);
+                const yScale = d3.scaleLinear().domain([0, 14]).range([innerHeight, 0]);
+
+                xAxisG.transition().duration(1000).call(d3.axisBottom(xScale).tickFormat(d => d + "%")).attr("color", "#aaa");
+                yAxisG.transition().duration(1000).call(d3.axisLeft(yScale)).attr("color", "#aaa");
+                xLabel.text("Pass Completion Percentage (%)");
+                yLabel.text("Progressive Passes (Per Match)");
+
+                chartContent.append("rect")
+                    .attr("x", xScale(82)).attr("y", 0)
+                    .attr("width", innerWidth - xScale(82)).attr("height", yScale(8))
+                    .attr("fill", "rgba(255, 215, 0, 0.1)")
+                    .style("pointer-events", "none"); 
+
+                chartContent.append("line").attr("x1", xScale(82)).attr("y1", 0).attr("x2", xScale(82)).attr("y2", innerHeight).attr("stroke", "#ff4444").attr("stroke-dasharray", "5,5").style("pointer-events", "none");
+                chartContent.append("line").attr("x1", 0).attr("y1", yScale(8)).attr("x2", innerWidth).attr("y2", yScale(8)).attr("stroke", "#ff4444").attr("stroke-dasharray", "5,5").style("pointer-events", "none");
+
+                chartContent.selectAll("circle.player").data(funnelData, d => d.player).join("circle")
+                    .attr("class", "player")
+                    .attr("cx", d => xScale(d.completion_pct))
+                    .attr("cy", d => yScale(d.prog_per_match))
+                    .attr("r", d => passesAct1(d) ? 8 : 5)
+                    .attr("fill", d => passesAct1(d) ? "#ffd700" : "#444")
+                    .attr("stroke", "#111").attr("stroke-width", 1)
+                    .on("mouseover", showTooltipAct1).on("mouseout", hideTooltipAct1);
+
+                const labelDataAct1 = eliteNine.map(d => ({
+                    ...d,
+                    x: xScale(d.completion_pct) + 12,
+                    y: yScale(d.prog_per_match) + 4,
+                    tx: xScale(d.completion_pct) + 12,
+                    ty: yScale(d.prog_per_match) + 4
+                }));
+
+                const simAct1 = d3.forceSimulation(labelDataAct1)
+                    .force("x", d3.forceX(d => d.tx).strength(0.3))
+                    .force("y", d3.forceY(d => d.ty).strength(0.3))
+                    .force("collide", d3.forceCollide(20).iterations(3))
+                    .stop();
+                
+                for (let i = 0; i < 300; ++i) simAct1.tick();
+
+                chartContent.selectAll("text.plabel").data(labelDataAct1, d => d.player).join("text")
+                    .attr("class", "plabel")
+                    .attr("x", d => d.x).attr("y", d => d.y)
+                    .attr("fill", "white").style("font-size", "12px").style("pointer-events", "none").style("text-anchor", "start")
+                    .text(d => d.player.split(" ").pop());
+            }
+
+            function drawAct2() {
+                d3.select("#controls").style("display", "block");
+                d3.select("#chart-container").style("pointer-events", "auto").transition().duration(500).style("opacity", 1);
+                d3.select("#grid-container").transition().duration(500).style("opacity", 0);
+                d3.select("#sonar-legend").transition().duration(500).style("opacity", 0);
+                d3.select("#vote-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                chartContent.selectAll("*").remove(); 
+
+                const xScale = d3.scaleLinear().domain([4, 17]).range([0, innerWidth]);
+                const yScale = d3.scaleLinear().domain([0, 5]).range([innerHeight, 0]);
+                const rScale = d3.scaleSqrt().domain([0, 3]).range([5, 25]);
+
+                xAxisG.transition().duration(1000).call(d3.axisBottom(xScale)).attr("color", "#aaa");
+                yAxisG.transition().duration(1000).call(d3.axisLeft(yScale)).attr("color", "#aaa");
+                xLabel.text("Passes into the Final Third (Per Match)");
+                yLabel.text("Passes into the Penalty Box (Per Match)");
+
+                chartContent.append("rect").attr("x", 0).attr("y", yScale(2)).attr("width", xScale(8)).attr("height", innerHeight - yScale(2)).attr("fill", "rgba(255, 50, 50, 0.15)").style("pointer-events", "none");
+                
+
+                chartContent.selectAll("circle.player").data(eliteNine, d => d.player).join("circle")
+                    .attr("class", "player")
+                    .attr("cx", d => xScale(d.final_third_per_match))
+                    .attr("cy", d => yScale(d.box_passes_per_match))
+                    .attr("r", 0)
+                    .attr("fill", d => passesAct2(d) ? "rgba(0, 180, 216, 0.8)" : "rgba(85, 85, 85, 0.8)")
+                    .attr("stroke", d => passesAct2(d) ? "#00b4d8" : "#888")
+                    .attr("stroke-width", 2)
+                    .on("mouseover", showTooltipAct2).on("mouseout", hideTooltipAct2)
+                    .transition().duration(1000).attr("r", d => rScale(d.key_passes_per_match));
+
+                const labelData = eliteNine.map(d => ({
+                    ...d,
+                    x: xScale(d.final_third_per_match),
+                    y: yScale(d.box_passes_per_match) - rScale(d.key_passes_per_match) - 10,
+                    tx: xScale(d.final_third_per_match), 
+                    ty: yScale(d.box_passes_per_match) - rScale(d.key_passes_per_match) - 10
+                }));
+
+                const simulation = d3.forceSimulation(labelData)
+                    .force("x", d3.forceX(d => d.tx).strength(0.2))
+                    .force("y", d3.forceY(d => d.ty).strength(0.2))
+                    .force("collide", d3.forceCollide(25).iterations(3)) 
+                    .stop();
+                
+                for (let i = 0; i < 300; ++i) simulation.tick(); 
+
+                chartContent.selectAll("text.plabel").data(labelData, d => d.player).join("text")
+                    .attr("class", "plabel")
+                    .attr("x", d => d.x).attr("y", d => d.y)
+                    .attr("fill", "white").style("font-size", "13px").style("text-anchor", "middle").style("font-weight", "bold").style("pointer-events", "none")
+                    .text(d => d.player.split(" ").pop());
+            }
+
+            function drawAct3() {
+                d3.select("#controls").style("display", "none");
+                d3.select("#chart-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                d3.select("#grid-container").style("pointer-events", "auto").transition().duration(800).style("opacity", 1);
+                d3.select("#sonar-legend").transition().duration(800).style("opacity", 1);
+                d3.select("#vote-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                tooltip.style("opacity", 0);
+            }
+
+            function drawAct4() {
+                d3.select("#controls").style("display", "none");
+                d3.select("#chart-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                d3.select("#grid-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
+                d3.select("#sonar-legend").transition().duration(500).style("opacity", 0);
+                d3.select("#vote-container").style("pointer-events", "auto").transition().duration(800).style("opacity", 1);
+            }
+
+            // initialize scrollama storyteller
+            const scroller = scrollama();
+            scroller.setup({ step: ".step", offset: 0.5 }).onStepEnter((response) => {
+                d3.selectAll(".step").classed("is-active", false);
+                d3.select(response.element).classed("is-active", true);
+
+                if (response.index === 0) drawAct1();
+                if (response.index === 1) drawAct2();
+                if (response.index === 2) drawAct3();
+                if (response.index === 3) drawAct4();
+            });
+            window.addEventListener("resize", scroller.resize);
+            
+drawAct1(); // start on the first chart
+            
+            // helper functions for tooltips and labels
+            function showTooltipAct1(event, d) {
+                d3.select(this).attr("stroke", "white").attr("stroke-width", 2);
+                let volCheck = d.passes_per_match >= 45 ? "✅" : "❌";
+                let compCheck = d.completion_pct >= 82 ? "✅" : "❌";
+                let progCheck = d.prog_per_match >= 8 ? "✅" : "❌";
+                let status = passesAct1(d) ? "<span style='color:#00ff00'>Advances to Round 2</span>" : "<span style='color:#ff4444'>Eliminated</span>";
+
+                const rect = document.querySelector("figure").getBoundingClientRect();
+                tooltip.style("opacity", 1).html(`
+                    <span class="highlight">${d.player}</span><br>
+                    <span style="color:#aaa">${d.team}</span><br>
+                    <hr style="border:0; border-top:1px solid #444; margin:6px 0;">
+                    <b>${status}</b><br><br>
+                    Pass Volume: <b>${d.passes_per_match}</b> ${volCheck}<br>
+                    Completion: <b>${d.completion_pct}%</b> ${compCheck}<br>
+                    Progressive: <b>${d.prog_per_match}</b> ${progCheck}
+                `);
+                
+                let x = event.clientX - rect.left + 15;
+                let y = event.clientY - rect.top - 28;
+                setTimeout(() => {
+                    const tooltipRect = tooltip.node().getBoundingClientRect();
+                    if (tooltipRect.right > rect.right - 10) x = event.clientX - rect.left - tooltipRect.width - 15;
+                    if (tooltipRect.bottom > rect.bottom - 10) y = event.clientY - rect.top - tooltipRect.height - 15;
+                    if (x < 10) x = 10; if (y < 10) y = 10;
+                    tooltip.style("left", x + "px").style("top", y + "px");
+                }, 0);
+            }
+            function hideTooltipAct1(event, d) { d3.select(this).attr("stroke", "#111").attr("stroke-width", 1).attr("fill", passesAct1(d) ? "#ffd700" : "#444"); tooltip.style("opacity", 0); }
+
+            function showTooltipAct2(event, d) {
+                d3.select(this).attr("fill", "#ffd700").attr("stroke", "white");
+                let status = passesAct2(d) ? "<span style='color:#00ff00'>Finalist</span>" : "<span style='color:#ff4444'>Eliminated</span>";
+
+                const rect = document.querySelector("figure").getBoundingClientRect();
+                tooltip.style("opacity", 1).html(`
+                    <span class="highlight">${d.player}</span><br>
+                    <span style="color:#aaa">${d.team}</span><br>
+                    <hr style="border:0; border-top:1px solid #444; margin:6px 0;">
+                    <b>${status}</b><br><br>
+                    Final Third: <b>${d.final_third_per_match}</b><br>
+                    Box Passes: <b>${d.box_passes_per_match}</b><br>
+                    Key Passes (Size): <b style="color:#00b4d8">${d.key_passes_per_match}</b>
+                `);
+                
+                let x = event.clientX - rect.left + 15;
+                let y = event.clientY - rect.top - 28;
+                setTimeout(() => {
+                    const tooltipRect = tooltip.node().getBoundingClientRect();
+                    if (tooltipRect.right > rect.right - 10) x = event.clientX - rect.left - tooltipRect.width - 15;
+                    if (tooltipRect.bottom > rect.bottom - 10) y = event.clientY - rect.top - tooltipRect.height - 15;
+                    if (x < 10) x = 10; if (y < 10) y = 10;
+                    tooltip.style("left", x + "px").style("top", y + "px");
+                }, 0);
+            }
+            function hideTooltipAct2(event, d) { d3.select(this).attr("fill", passesAct2(d) ? "rgba(0, 180, 216, 0.8)" : "rgba(85, 85, 85, 0.8)").attr("stroke", passesAct2(d) ? "#00b4d8" : "#888").attr("stroke-width", 2); tooltip.style("opacity", 0); }
+
+            function buildAct3Grid(sonarData, pitchData) {
+                const players = [ { name: "Pedri", desc: "Short Tiki-Taka, High Final Third Volume" }, { name: "Kimmich", desc: "The Ultimate Vertical Threat" }, { name: "Eriksen", desc: "Direct Attacking Spearhead" }, { name: "Modrić", desc: "The Complete Midfield Engine" } ];
+                const grid = d3.select("#grid-container");
+                players.forEach(p => {
+                    const card = grid.append("div").attr("class", "player-card");
+                    card.append("div").attr("class", "card-header").html(`<h3>${p.name}</h3><span>${p.desc}</span>`);
+                    const charts = card.append("div").attr("class", "charts-wrapper");
+                    charts.append("div").attr("id", `sonar-${p.name}`);
+                    charts.append("div").attr("id", `pitch-${p.name}`);
+                    renderSonar(sonarData.filter(d => d.player === p.name), `#sonar-${p.name}`);
+                    renderPitch(pitchData.filter(d => d.player === p.name), `#pitch-${p.name}`);
+                });
+            }
+
+            function renderSonar(pData, selector) {
+                const size = 200, radius = 80, numBins = 16, binSize = 360 / numBins, totalPasses = pData.length;
+                let bins = Array.from({length: numBins}, (_, i) => ({ angleStart: i * binSize, angleEnd: (i + 1) * binSize, count: 0, totalLength: 0 }));
+                pData.forEach(d => { let i = Math.floor(d.angle_degrees / binSize); if(i===numBins) i=0; bins[i].count++; bins[i].totalLength += d.length; });
+                bins.forEach(b => { b.avgLength = b.count > 0 ? b.totalLength / b.count : 0; b.pct = totalPasses > 0 ? (b.count / totalPasses) * 100 : 0; });
+
+                const rScale = d3.scaleLinear().domain([0, 20]).range([0, radius]);
+                const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 30]);
+                const arc = d3.arc().innerRadius(8).outerRadius(d => rScale(Math.min(d.pct, 20))).startAngle(d => (d.angleStart + 90) * (Math.PI / 180)).endAngle(d => (d.angleEnd + 90) * (Math.PI / 180));
+
+                const svg = d3.select(selector).append("svg").attr("width", size).attr("height", size);
+                const g = svg.append("g").attr("transform", `translate(${size/2}, ${size/2})`); 
+                const ticks = [5, 10, 15, 20];
+                g.selectAll("circle.grid").data(ticks).enter().append("circle").attr("r", rScale).style("fill", "none").style("stroke", "rgba(255,255,255,0.15)").style("stroke-dasharray", "2,2");
+                g.selectAll("text.grid-label").data(ticks).enter().append("text").attr("y", d => -rScale(d) - 2).attr("x", 2).attr("fill", "rgba(255,255,255,0.5)").style("font-size", "10px").text(d => d + "%");
+                g.selectAll("path").data(bins).enter().append("path")
+                    .attr("d", arc)
+                    .attr("fill", d => colorScale(d.avgLength))
+                    .attr("stroke", "#1a1a1a")
+                    .attr("stroke-width", 1)
+                    .style("cursor", "pointer")
+                    .on("mouseover", function(event, d) {
+                        d3.select(this).attr("stroke", "white").attr("stroke-width", 2);
+                        tooltip.style("opacity", 1).html(`
+                            <b>Direction:</b> ${d.angleStart.toFixed(0)}° - ${d.angleEnd.toFixed(0)}°<br>
+                            <b>Volume:</b> ${d.pct.toFixed(1)}% of passes<br>
+                            <b>Avg Distance:</b> ${d.avgLength.toFixed(1)} yds
+                        `);
+                        const rect = document.querySelector("figure").getBoundingClientRect();
+                        let x = event.clientX - rect.left + 15;
+                        let y = event.clientY - rect.top - 28;
+                        setTimeout(() => {
+                            const tooltipRect = tooltip.node().getBoundingClientRect();
+                            if (tooltipRect.right > rect.right - 10) x = event.clientX - rect.left - tooltipRect.width - 15;
+                            if (tooltipRect.bottom > rect.bottom - 10) y = event.clientY - rect.top - tooltipRect.height - 15;
+                            if (x < 10) x = 10; if (y < 10) y = 10;
+                            tooltip.style("left", x + "px").style("top", y + "px");
+                        }, 0);
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this).attr("stroke", "#1a1a1a").attr("stroke-width", 1);
+                        tooltip.style("opacity", 0);
+                    });
+                g.append("circle").attr("r", 4).attr("fill", "white");
+            }
+
+            function renderPitch(pData, selector) {
+                const w = 120, h = 180, scaleX = d3.scaleLinear().domain([0, 80]).range([0, w]), scaleY = d3.scaleLinear().domain([0, 120]).range([h, 0]);
+                const svg = d3.select(selector).append("svg").attr("width", w).attr("height", h);
+                const g = svg.append("g");
+                g.append("rect").attr("width", w).attr("height", h).attr("fill", "#1e3d24").attr("stroke", "#aaa");
+                g.append("line").attr("x1", 0).attr("y1", h/2).attr("x2", w).attr("y2", h/2).attr("stroke", "rgba(255,255,255,0.2)");
+                g.append("circle").attr("cx", w/2).attr("cy", h/2).attr("r", scaleX(10)).attr("fill", "none").attr("stroke", "rgba(255,255,255,0.2)");
+                g.append("rect").attr("x", scaleX(18)).attr("y", scaleY(18)).attr("width", scaleX(44)).attr("height", h - scaleY(18)).attr("fill", "none").attr("stroke", "rgba(255,255,255,0.2)");
+                g.append("rect").attr("x", scaleX(18)).attr("y", 0).attr("width", scaleX(44)).attr("height", scaleY(102)).attr("fill", "none").attr("stroke", "rgba(255,255,255,0.2)");
+                svg.append("defs").append("marker").attr("id", "arrow-gold").attr("viewBox", "0 -5 10 10").attr("refX", 5).attr("refY", 0).attr("markerWidth", 5).attr("markerHeight", 5).attr("orient", "auto").append("path").attr("d", "M0,-5L10,0L0,5").attr("fill", "#ffd700");
+                svg.append("defs").append("marker").attr("id", "arrow-blue").attr("viewBox", "0 -5 10 10").attr("refX", 5).attr("refY", 0).attr("markerWidth", 4).attr("markerHeight", 4).attr("orient", "auto").append("path").attr("d", "M0,-5L10,0L0,5").attr("fill", "rgba(0, 180, 216, 0.6)");
+                g.selectAll("line.pass").data(pData).enter().append("line")
+                    .attr("class", "pass")
+                    .attr("x1", d => scaleX(d.start_y))
+                    .attr("y1", d => scaleY(d.start_x))
+                    .attr("x2", d => scaleX(d.end_y))
+                    .attr("y2", d => scaleY(d.end_x))
+                    .attr("stroke", d => d.is_box ? "#ffd700" : "rgba(0, 180, 216, 0.4)")
+                    .attr("stroke-width", d => d.is_box ? 2 : 1)
+                    .attr("marker-end", d => d.is_box ? "url(#arrow-gold)" : "url(#arrow-blue)")
+                    .style("cursor", "pointer")
+                    .on("mouseover", function(event, d) {
+                        d3.select(this).attr("stroke-width", 4).attr("stroke", d.is_box ? "#fff" : "#00b4d8");
+                        let yards = Math.abs(d.end_x - d.start_x).toFixed(1);
+                        tooltip.style("opacity", 1).html(`
+                            <b>Vertical Yards Gained:</b> ${yards}<br>
+                            ${d.is_box ? "<span style='color:#ffd700'>⚽ Pass into Penalty Box</span>" : "Progressive Pass"}
+                        `);
+                        const rect = document.querySelector("figure").getBoundingClientRect();
+                        let x = event.clientX - rect.left + 15;
+                        let y = event.clientY - rect.top - 28;
+                        setTimeout(() => {
+                            const tooltipRect = tooltip.node().getBoundingClientRect();
+                            if (tooltipRect.right > rect.right - 10) x = event.clientX - rect.left - tooltipRect.width - 15;
+                            if (tooltipRect.bottom > rect.bottom - 10) y = event.clientY - rect.top - tooltipRect.height - 15;
+                            if (x < 10) x = 10; if (y < 10) y = 10;
+                            tooltip.style("left", x + "px").style("top", y + "px");
+                        }, 0);
+                    })
+                    .on("mouseout", function(event, d) {
+                        d3.select(this)
+                            .attr("stroke-width", d.is_box ? 2 : 1)
+                            .attr("stroke", d.is_box ? "#ffd700" : "rgba(0, 180, 216, 0.4)");
+                        tooltip.style("opacity", 0);
+                    });
+            }
+        });
+
+        // voting behaviour for the final act
+        let hasVoted = false;
+
+        window.submitVote = function(player) {
+            if (hasVoted) return; // don't let people vote twice
+            hasVoted = true;
+
+            // mark the clicked choice visually
+            document.querySelectorAll('.vote-btn').forEach(btn => {
+                if(btn.innerText === player) btn.classList.add('selected');
+                btn.style.pointerEvents = 'none'; // stop more clicks
+            });
+
+            // fake community vote numbers just for show
+            let voteData = [
+                { name: "Pedri", votes: 124 },
+                { name: "Eriksen", votes: 85 },
+                { name: "Modrić", votes: 342 },
+                { name: "Kimmich", votes: 289 }
+            ];
+
+            // throw the user's pick into the mix
+            voteData.find(v => v.name === player).votes += 1;
+
+            // work out percents from counts
+            const totalVotes = d3.sum(voteData, d => d.votes);
+            voteData.forEach(d => {
+                d.pct = (d.votes / totalVotes) * 100;
+                d.isWinner = d.name === "Kimmich"; // only Kimmich is the 'winner'
+            });
+
+            // sort them so largest votes come first
+            voteData.sort((a, b) => b.votes - a.votes);
+
+            // render a simple bar chart
+            const w = 600, h = 250;
+            const margin = {top: 20, right: 50, bottom: 20, left: 100};
+            
+            const svg = d3.select("#results-chart").append("svg")
+                .attr("width", w).attr("height", h)
+                .style("opacity", 0);
+
+            const xScale = d3.scaleLinear().domain([0, 60]).range([0, w - margin.left - margin.right]);
+            const yScale = d3.scaleBand().domain(voteData.map(d => d.name)).range([0, h - margin.top - margin.bottom]).padding(0.2);
+
+            const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // animate the bars growing
+            g.selectAll(".bar")
+                .data(voteData).enter().append("rect")
+                .attr("class", "bar")
+                .attr("y", d => yScale(d.name))
+                .attr("height", yScale.bandwidth())
+                .attr("x", 0)
+                .attr("width", 0) // begin collapsed for effect
+                .attr("fill", d => d.isWinner ? "#00b4d8" : "#444")
+                .transition().duration(1000).delay((d,i) => i * 200)
+                .attr("width", d => xScale(d.pct));
+
+            // Labels on the y-axis
+            g.selectAll(".label")
+                .data(voteData).enter().append("text")
+                .attr("y", d => yScale(d.name) + yScale.bandwidth()/2 + 5)
+                .attr("x", -10)
+                .attr("fill", "white").style("text-anchor", "end").style("font-size", "14px").style("font-weight", "bold")
+                .text(d => d.name);
+
+            // Percentage Text at end of bars
+            g.selectAll(".pct-label")
+                .data(voteData).enter().append("text")
+                .attr("y", d => yScale(d.name) + yScale.bandwidth()/2 + 5)
+                .attr("x", 10)
+                .attr("fill", "white").style("font-size", "14px").style("font-weight", "bold")
+                .text(d => d.pct.toFixed(1) + "%")
+                .style("opacity", 0)
+                .transition().duration(500).delay(1500)
+                .style("opacity", 1)
+                .attr("x", d => xScale(d.pct) + 10);
+
+            // Fade in Chart and Verdict Box
+            svg.transition().duration(500).style("opacity", 1);
+            d3.select("#verdict-box").transition().delay(1000).style("opacity", 1);
+        };
+    </script>
+</body>
+</html>
