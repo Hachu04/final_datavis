@@ -209,7 +209,11 @@
     <script>
         // global vars and initial setup
         const width = 850, height = 750;
-        const svg = d3.select("#chart-container").append("svg").attr("width", width).attr("height", height);
+        const svg = d3.select("#chart-container").append("svg")
+                .attr("viewBox", `0 0 ${width} ${height}`)
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .style("width", "100%")
+                .style("height", "100%");
         const margin = {top: 50, right: 50, bottom: 60, left: 60};
         const innerWidth = width - margin.left - margin.right;
         const innerHeight = height - margin.top - margin.bottom;
@@ -484,7 +488,11 @@ drawAct1(); // start on the first chart
                 const colorScale = d3.scaleSequential(d3.interpolateYlOrRd).domain([0, 30]);
                 const arc = d3.arc().innerRadius(8).outerRadius(d => rScale(Math.min(d.pct, 20))).startAngle(d => (d.angleStart + 90) * (Math.PI / 180)).endAngle(d => (d.angleEnd + 90) * (Math.PI / 180));
 
-                const svg = d3.select(selector).append("svg").attr("width", size).attr("height", size);
+                const svg = d3.select(selector).append("svg")
+                    .attr("viewBox", `0 0 ${size} ${size}`)
+                    .attr("preserveAspectRatio", "xMidYMid meet")
+                    .style("width", "100%")
+                    .style("height", "auto");
                 const g = svg.append("g").attr("transform", `translate(${size/2}, ${size/2})`); 
                 const ticks = [5, 10, 15, 20];
                 g.selectAll("circle.grid").data(ticks).enter().append("circle").attr("r", rScale).style("fill", "none").style("stroke", "rgba(255,255,255,0.15)").style("stroke-dasharray", "2,2");
@@ -522,7 +530,11 @@ drawAct1(); // start on the first chart
 
             function renderPitch(pData, selector) {
                 const w = 120, h = 180, scaleX = d3.scaleLinear().domain([0, 80]).range([0, w]), scaleY = d3.scaleLinear().domain([0, 120]).range([h, 0]);
-                const svg = d3.select(selector).append("svg").attr("width", w).attr("height", h);
+                const svg = d3.select(selector).append("svg")
+                    .attr("viewBox", `0 0 ${w} ${h}`)
+                    .attr("preserveAspectRatio", "xMidYMid meet")
+                    .style("width", "100%")
+                    .style("height", "auto");
                 const g = svg.append("g");
                 g.append("rect").attr("width", w).attr("height", h).attr("fill", "#1e3d24").attr("stroke", "#aaa");
                 g.append("line").attr("x1", 0).attr("y1", h/2).attr("x2", w).attr("y2", h/2).attr("stroke", "rgba(255,255,255,0.2)");
