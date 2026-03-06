@@ -270,10 +270,11 @@
             function drawAct1() {
                 d3.select("#controls").style("display", "block");
                 d3.select("#chart-container").style("pointer-events", "auto").transition().duration(500).style("opacity", 1);
-                d3.select("#grid-container").transition().duration(500).style("opacity", 0);
+                d3.select("#grid-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
                 d3.select("#sonar-legend").transition().duration(500).style("opacity", 0);
                 d3.select("#vote-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
                 chartContent.selectAll("*").remove();
+                tooltip.style("opacity", 0);
 
                 const xScale = d3.scaleLinear().domain([75, 100]).range([0, innerWidth]);
                 const yScale = d3.scaleLinear().domain([0, 14]).range([innerHeight, 0]);
@@ -327,10 +328,11 @@
             function drawAct2() {
                 d3.select("#controls").style("display", "block");
                 d3.select("#chart-container").style("pointer-events", "auto").transition().duration(500).style("opacity", 1);
-                d3.select("#grid-container").transition().duration(500).style("opacity", 0);
+                d3.select("#grid-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
                 d3.select("#sonar-legend").transition().duration(500).style("opacity", 0);
                 d3.select("#vote-container").style("pointer-events", "none").transition().duration(500).style("opacity", 0);
                 chartContent.selectAll("*").remove(); 
+                tooltip.style("opacity", 0);
 
                 const xScale = d3.scaleLinear().domain([4, 17]).range([0, innerWidth]);
                 const yScale = d3.scaleLinear().domain([0, 5]).range([innerHeight, 0]);
