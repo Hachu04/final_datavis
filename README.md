@@ -4,7 +4,7 @@
 
 ## Links
 * **Project Website:** https://hachu04.github.io/final_datavis/
-* **Screencast Video:** 
+* **Screencast Video:** https://www.loom.com/share/7f03de6843454d6c9062d9c61736f8d3
 * **Process Book:** Located in this repository as `Process Book_ Project Number 8.pdf`.
 
 ## Project Overview
